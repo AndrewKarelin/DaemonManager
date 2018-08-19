@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daemon manager</title>
+</head>
+<body>
+<script>
+req = new XMLHttpRequest()
+req.open('GET', '/status',true);
+req.send(null);
+
+req.onreadystatechange = function()
+ {
+  if (req.readyState == 4 && req.status == 200)
+   {
+   document.getElementById('status').innerHTML=req.responseText;
+
+   req.open('GET', '/status',true);
+   req.send(null);
+  }
+};
+
+
+
+
+</script>
+
+<h1 id="status">Определяю статус</h1>
+
+<!--TODO можно включать/выключать управление в html, чтобы не грузить страницу заново а на сервер отправлять cheсked для сохранения в конфиг-->
+<form>
+    <input type="button" {{disabled}} value="Запустить" onclick="javascript:window.location='/start'"/>
+    <input type="button" {{disabled}} value="Перезапустить" onclick="javascript:window.location='/restart'"/>
+    <input type="button" {{disabled}} value="Остановить" onclick="javascript:window.location='/stop'"/>
+
+    <input type="checkbox" {{checked}} id='cb'
+           onclick="javascript:window.location=document.getElementById('cb').checked?'/enable':'/disable';"/>
+    <label onclick="javascript:window.location=document.getElementById('cb').checked?'/disable':'/enable';">Включить
+        управление </label>
+</form>
+
+</body>
+</html>
