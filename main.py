@@ -1,3 +1,5 @@
+import os
+import subprocess
 import syslog
 
 from aiohttp import web
@@ -24,12 +26,9 @@ def main():
     myconfig.save_config(app_config)
 
 
-main()
-#
-# if __name__ == '__main__':
-#     if os.geteuid() == 0:
-#         main()
-#     else:
-#         current_script = os.path.realpath(__file__)
-#         subprocess.call(['sudo','-S', 'python3', current_script])
-#
+if __name__ == '__main__':
+    if os.geteuid() == 0:
+        main()
+    else:
+        current_script = os.path.realpath(__file__)
+        subprocess.call(['sudo', '-S', 'python3', current_script])

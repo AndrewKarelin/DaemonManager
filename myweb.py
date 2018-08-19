@@ -31,13 +31,11 @@ async def render_page(request):
 async def handle_command(request):
     command = request.match_info['command']
     syslog.syslog('Have command ' + command)
-
+    request.app['status'] = 'Определяю статус'
     if command in ['disable', 'enable']:
         request.app['checked'] = flag_state[command]
-        request.app['status'] = 'Определяю статус'
     elif command in ['start', 'restart', 'stop']:
         mydaemon.send_command(command)
-        request.app['status'] = 'Определяю статус'
     raise web.HTTPFound('/')
 
 
