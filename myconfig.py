@@ -25,4 +25,4 @@ def save_config(config):
             json.dump(config, f)
         syslog.syslog('Конфигурация сохранена ' + config_file_name + '  ' + str(config))
     except:
-        syslog.syslog('шибка сохранения конфигурации  ' + config_file_name + '  ' + str(config))
+        syslog.syslog('Ошибка сохранения конфигурации  ' + config_file_name + '  ' + str(config))
